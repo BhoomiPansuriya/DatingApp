@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UserController(DataContext db) : ControllerBase {
+public class UsersController(DataContext db) : ControllerBase {
     private readonly DataContext _context = db;
 
     [HttpGet]
