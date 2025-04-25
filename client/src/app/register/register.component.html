@@ -1,16 +1,52 @@
-<form #regiserForm="ngForm" (ngSubmit)="register()">
+<form [formGroup]="regiserForm" (ngSubmit)="register()">
     <h2 class="text-center text-primary">Sign Up</h2>
     <hr>
+    <div class="mb-3">
+        <label style="margin-right: 10px;">I am a: </label>
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input" value="male" formControlName="gender"> Male
+        </label>
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input" value="female" formControlName="gender"> Female
+        </label>
+    </div>
+
     <div class="mb-3 form-floating">
-        <input type="text" class="form-control" name="username" [(ngModel)]="model.username" placeholder="Username">
-        <label>Username</label>
+        <app-text-input [formControl]="$any(regiserForm.controls['username'])" [label]="'Username'"></app-text-input>
     </div>
     <div class="mb-3 form-floating">
-        <input type="password" class="form-control" name="password" [(ngModel)]="model.password" placeholder="Password">
-        <label>Password</label>
+        <app-text-input [formControl]="$any(regiserForm.controls['knownAs'])" [label]="'knownAs'"></app-text-input>
     </div>
+    <div class="mb-3 form-floating">
+        <app-date-picker [formControl]="$any(regiserForm.controls['dateOfBirth'])"
+            [label]="'Date Of Birth'"></app-date-picker>
+    </div>
+    <div class="mb-3 form-floating">
+        <app-text-input [formControl]="$any(regiserForm.controls['city'])" [label]="'city'"></app-text-input>
+    </div>
+    <div class="mb-3 form-floating">
+        <app-text-input [formControl]="$any(regiserForm.controls['country'])" [label]="'country'"></app-text-input>
+    </div>
+    <div class="mb-3 form-floating">
+        <app-text-input [formControl]="$any(regiserForm.controls['password'])" [label]="'Password'"></app-text-input>
+    </div>
+    <div class="mb-3 form-floating">
+        <app-text-input [formControl]="$any(regiserForm.controls['confirmPassword'])"
+            [label]="'Confirm Password'"></app-text-input>
+    </div>
+    @if(validationError.length >0) {
+        <div class="alert alert-danger">
+            <ul> 
+                @for (item of validationError; track $index) {
+                    <li>
+                        {{item}}
+                    </li>
+                }
+            </ul>
+        </div>
+    }
     <div>
-        <button class="btn btn-success me-2" type="submit">Register</button>
+        <button [disabled]="!regiserForm.valid" class="btn btn-success me-2" type="submit">Register</button>
         <button class="btn btn-primary me-2" type="reset" (click)="cancel()">Cancel</button>
     </div>
 </form>

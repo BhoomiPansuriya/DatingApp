@@ -9,7 +9,10 @@ namespace API.Extentions;
 
 public static class ApplicationServiceExtentesions
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddApplicationServices(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
     {
         services.AddControllers();
         services.AddDbContext<DataContext>(op =>
@@ -18,8 +21,15 @@ public static class ApplicationServiceExtentesions
         });
         services.AddCors();
         services.AddScoped<ITokenService, TokenService>();
-         services.AddScoped<IUserRepository, UserRepository>();
-         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IPhotoService, PhotoService>();
+        services.AddScoped<LogUserActivities>();
+        services.AddScoped<ILikesRepository, LikesRepository>();
+        services.AddScoped<IMessageRepository, MessageRepository>();
+        services.AddScoped<IPhotoRepository, PhotoRepository>();
+        //   services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
         return services;
     }
 }
