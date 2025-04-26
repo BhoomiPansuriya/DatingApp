@@ -32,11 +32,11 @@ public class LikesController(ILikesRepository likesRepository) : BaseApiControll
             return Ok();
         }
 
-        if (await likesRepository.SaveAllAsync())
-        {
-            return Ok();
-        }
-        return BadRequest("Failed to like this user");
+        // if (await likesRepository.SaveAllAsync())
+        // {
+        //     return Ok();
+        // }
+        // return BadRequest("Failed to like this user");
     }
 
     [HttpGet]

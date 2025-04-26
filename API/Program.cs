@@ -21,8 +21,10 @@ app.UseCors(x =>
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseDefaultFiles();
+app.UseStaticFiles();
 app.MapControllers();
-
+app.MapFallbackToController("index", "Fallback");
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 try
