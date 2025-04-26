@@ -17,6 +17,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Setup node.jobs
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+      - name: Install angular cli
+        run: npm install -g @angular/cli@18.0.0
+
+      - name: Install deps and build angular app
+        run: |
+          cd client
+          npm install
+          ng build
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
